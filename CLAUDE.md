@@ -6,7 +6,7 @@
 
 ## 構成
 - Vite + React + TypeScript / PWA対応
-- Vercelに自動デプロイ
+- GitHub Pagesに自動デプロイ
 
 ## 設計上の絶対ルール
 - src/core/ には計算ロジックと型定義のみを置く。UIのコードを混ぜない

@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
@@ -59,4 +59,9 @@ export default defineConfig({
       },
     }),
   ],
+  test: {
+    // src/core/ の計算ロジックは画面に依存しないので、ブラウザ環境は不要
+    environment: 'node',
+    include: ['src/**/*.test.ts'],
+  },
 })
