@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="決済オプティマイザー">
+  <rect width="64" height="64" rx="14" fill="#182038"/>
+  <g fill="none" stroke-linecap="square" stroke-width="6">
+    <path d="M18 18 L32 33 L46 18" stroke="#6ea8fe"/>
+    <path d="M32 33 L32 49 M21 38 H43 M21 44 H43" stroke="#ffffff"/>
+  </g>
+</svg>
