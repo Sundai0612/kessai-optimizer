@@ -90,6 +90,31 @@ describe('並び順', () => {
   })
 })
 
+describe('濁点のゆらぎ', () => {
+  const sushi: Store[] = [
+    { id: 'kura', name: 'くら寿司', kana: 'くらずし', aliases: [], categoryId: 'restaurant', source },
+    { id: 'hama', name: 'はま寿司', kana: 'はまずし', aliases: [], categoryId: 'restaurant', source },
+    { id: 'sushiro', name: 'スシロー', kana: 'すしろー', aliases: [], categoryId: 'restaurant', source },
+  ]
+
+  it('「すし」で「〜ずし」の店も見つかる', () => {
+    const ids = searchStores(sushi, 'すし').map((store) => store.id)
+
+    expect(ids).toContain('sushiro')
+    expect(ids).toContain('kura')
+    expect(ids).toContain('hama')
+  })
+
+  it('濁点まで一致した店のほうが上に出る', () => {
+    const ids = searchStores(sushi, 'はまずし').map((store) => store.id)
+    expect(ids[0]).toBe('hama')
+  })
+
+  it('濁点を付けずに打っても当たる', () => {
+    expect(searchStores(sushi, 'はますし').map((store) => store.id)).toContain('hama')
+  })
+})
+
 describe('入力のゆらぎ', () => {
   it('前後の空白は無視する', () => {
     expect(idsFor('  せぶん  ')).toEqual(['seven-eleven'])

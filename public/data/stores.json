@@ -1,10 +1,46 @@
 {
-  "_note": "【重要】これは構造を確かめるためのサンプルです。URL・最終確認日は仮の値です。実際に使う前に確認して差し替えてください。",
+  "_note": "店名・よみがな・別名・分類のみを収録しています。還元率は含みません（還元率は bonuses.json 側）。分類は還元の条件に直結するため、実際の対象店舗と食い違う場合は分類ではなく店ごとの指定に切り替えてください。",
   "categories": [
-    { "id": "convenience", "name": "コンビニ", "kana": "こんびに" },
-    { "id": "drugstore", "name": "ドラッグストア", "kana": "どらっぐすとあ" },
-    { "id": "supermarket", "name": "スーパー", "kana": "すーぱー" },
-    { "id": "restaurant", "name": "飲食店", "kana": "いんしょくてん" }
+    {
+      "id": "convenience",
+      "name": "コンビニ",
+      "kana": "こんびに"
+    },
+    {
+      "id": "drugstore",
+      "name": "ドラッグストア",
+      "kana": "どらっぐすとあ"
+    },
+    {
+      "id": "supermarket",
+      "name": "スーパー",
+      "kana": "すーぱー"
+    },
+    {
+      "id": "restaurant",
+      "name": "飲食店",
+      "kana": "いんしょくてん"
+    },
+    {
+      "id": "cafe",
+      "name": "カフェ",
+      "kana": "かふぇ"
+    },
+    {
+      "id": "electronics",
+      "name": "家電量販店",
+      "kana": "かでんりょうはんてん"
+    },
+    {
+      "id": "hundred-yen",
+      "name": "100円ショップ",
+      "kana": "ひゃくえんしょっぷ"
+    },
+    {
+      "id": "apparel",
+      "name": "衣料品・生活雑貨",
+      "kana": "いりょうひんせいかつざっか"
+    }
   ],
   "stores": [
     {
@@ -12,48 +48,898 @@
       "name": "セブンイレブン",
       "kana": "せぶんいれぶん",
       "aliases": [
-        { "name": "セブン", "kana": "せぶん" },
-        { "name": "7-11", "kana": "せぶんいれぶん" },
-        { "name": "711", "kana": "せぶんいれぶん" }
+        {
+          "name": "セブン",
+          "kana": "せぶん"
+        },
+        {
+          "name": "セブン-イレブン",
+          "kana": "せぶんいれぶん"
+        },
+        {
+          "name": "7-11",
+          "kana": "せぶんいれぶん"
+        }
       ],
-      "categoryId": "convenience",
-      "source": {
-        "url": "https://www.sej.co.jp/",
-        "checkedOn": "2026-08-02"
-      }
+      "categoryId": "convenience"
     },
     {
       "id": "lawson",
       "name": "ローソン",
       "kana": "ろーそん",
       "aliases": [],
-      "categoryId": "convenience",
-      "source": {
-        "url": "https://www.lawson.co.jp/",
-        "checkedOn": "2026-08-02"
-      }
+      "categoryId": "convenience"
     },
     {
       "id": "familymart",
       "name": "ファミリーマート",
       "kana": "ふぁみりーまーと",
-      "aliases": [{ "name": "ファミマ", "kana": "ふぁみま" }],
-      "categoryId": "convenience",
-      "source": {
-        "url": "https://www.family.co.jp/",
-        "checkedOn": "2026-08-02"
-      }
+      "aliases": [
+        {
+          "name": "ファミマ",
+          "kana": "ふぁみま"
+        }
+      ],
+      "categoryId": "convenience"
+    },
+    {
+      "id": "ministop",
+      "name": "ミニストップ",
+      "kana": "みにすとっぷ",
+      "aliases": [],
+      "categoryId": "convenience"
+    },
+    {
+      "id": "daily-yamazaki",
+      "name": "デイリーヤマザキ",
+      "kana": "でいりーやまざき",
+      "aliases": [
+        {
+          "name": "デイリー",
+          "kana": "でいりー"
+        }
+      ],
+      "categoryId": "convenience"
+    },
+    {
+      "id": "seicomart",
+      "name": "セイコーマート",
+      "kana": "せいこーまーと",
+      "aliases": [
+        {
+          "name": "セコマ",
+          "kana": "せこま"
+        }
+      ],
+      "categoryId": "convenience"
+    },
+    {
+      "id": "lawson-store-100",
+      "name": "ローソンストア100",
+      "kana": "ろーそんすとあひゃく",
+      "aliases": [
+        {
+          "name": "ローソン100",
+          "kana": "ろーそんひゃく"
+        }
+      ],
+      "categoryId": "convenience"
+    },
+    {
+      "id": "newdays",
+      "name": "ニューデイズ",
+      "kana": "にゅーでいず",
+      "aliases": [
+        {
+          "name": "NewDays",
+          "kana": "にゅーでいず"
+        }
+      ],
+      "categoryId": "convenience"
     },
     {
       "id": "matsumotokiyoshi",
       "name": "マツモトキヨシ",
       "kana": "まつもときよし",
-      "aliases": [{ "name": "マツキヨ", "kana": "まつきよ" }],
-      "categoryId": "drugstore",
-      "source": {
-        "url": "https://www.matsukiyo.co.jp/",
-        "checkedOn": "2026-08-02"
-      }
+      "aliases": [
+        {
+          "name": "マツキヨ",
+          "kana": "まつきよ"
+        }
+      ],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "welcia",
+      "name": "ウエルシア",
+      "kana": "うえるしあ",
+      "aliases": [
+        {
+          "name": "ウエルシア薬局",
+          "kana": "うえるしあやっきょく"
+        }
+      ],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "tsuruha",
+      "name": "ツルハドラッグ",
+      "kana": "つるはどらっぐ",
+      "aliases": [
+        {
+          "name": "ツルハ",
+          "kana": "つるは"
+        }
+      ],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "sugi-yakkyoku",
+      "name": "スギ薬局",
+      "kana": "すぎやっきょく",
+      "aliases": [
+        {
+          "name": "スギドラッグ",
+          "kana": "すぎどらっぐ"
+        }
+      ],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "cocokara-fine",
+      "name": "ココカラファイン",
+      "kana": "ここからふぁいん",
+      "aliases": [],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "sundrug",
+      "name": "サンドラッグ",
+      "kana": "さんどらっぐ",
+      "aliases": [],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "create-sd",
+      "name": "クリエイトSD",
+      "kana": "くりえいとえすでぃー",
+      "aliases": [
+        {
+          "name": "クリエイト",
+          "kana": "くりえいと"
+        }
+      ],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "kawachi",
+      "name": "カワチ薬品",
+      "kana": "かわちやくひん",
+      "aliases": [],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "cosmos",
+      "name": "コスモス薬品",
+      "kana": "こすもすやくひん",
+      "aliases": [
+        {
+          "name": "ディスカウントドラッグコスモス",
+          "kana": "でぃすかうんとどらっぐこすもす"
+        }
+      ],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "seims",
+      "name": "ドラッグセイムス",
+      "kana": "どらっぐせいむす",
+      "aliases": [
+        {
+          "name": "セイムス",
+          "kana": "せいむす"
+        }
+      ],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "tomods",
+      "name": "トモズ",
+      "kana": "ともず",
+      "aliases": [],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "daikoku-drug",
+      "name": "ダイコクドラッグ",
+      "kana": "だいこくどらっぐ",
+      "aliases": [],
+      "categoryId": "drugstore"
+    },
+    {
+      "id": "aeon",
+      "name": "イオン",
+      "kana": "いおん",
+      "aliases": [
+        {
+          "name": "イオンスタイル",
+          "kana": "いおんすたいる"
+        }
+      ],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "ito-yokado",
+      "name": "イトーヨーカドー",
+      "kana": "いとーよーかどー",
+      "aliases": [
+        {
+          "name": "ヨーカドー",
+          "kana": "よーかどー"
+        }
+      ],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "life",
+      "name": "ライフ",
+      "kana": "らいふ",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "seiyu",
+      "name": "西友",
+      "kana": "せいゆう",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "maruetsu",
+      "name": "マルエツ",
+      "kana": "まるえつ",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "summit",
+      "name": "サミット",
+      "kana": "さみっと",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "yaoko",
+      "name": "ヤオコー",
+      "kana": "やおこー",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "ok-store",
+      "name": "オーケー",
+      "kana": "おーけー",
+      "aliases": [
+        {
+          "name": "OKストア",
+          "kana": "おーけーすとあ"
+        }
+      ],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "gyomu-super",
+      "name": "業務スーパー",
+      "kana": "ぎょうむすーぱー",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "daiei",
+      "name": "ダイエー",
+      "kana": "だいえー",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "seijo-ishii",
+      "name": "成城石井",
+      "kana": "せいじょういしい",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "my-basket",
+      "name": "まいばすけっと",
+      "kana": "まいばすけっと",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "tokyu-store",
+      "name": "東急ストア",
+      "kana": "とうきゅうすとあ",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "maxvalu",
+      "name": "マックスバリュ",
+      "kana": "まっくすばりゅ",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "heiwado",
+      "name": "平和堂",
+      "kana": "へいわどう",
+      "aliases": [],
+      "categoryId": "supermarket"
+    },
+    {
+      "id": "mcdonalds",
+      "name": "マクドナルド",
+      "kana": "まくどなるど",
+      "aliases": [
+        {
+          "name": "マック",
+          "kana": "まっく"
+        },
+        {
+          "name": "マクド",
+          "kana": "まくど"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "mos-burger",
+      "name": "モスバーガー",
+      "kana": "もすばーがー",
+      "aliases": [
+        {
+          "name": "モス",
+          "kana": "もす"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "kfc",
+      "name": "ケンタッキーフライドチキン",
+      "kana": "けんたっきーふらいどちきん",
+      "aliases": [
+        {
+          "name": "ケンタッキー",
+          "kana": "けんたっきー"
+        },
+        {
+          "name": "KFC",
+          "kana": "けーえふしー"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "burger-king",
+      "name": "バーガーキング",
+      "kana": "ばーがーきんぐ",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "freshness-burger",
+      "name": "フレッシュネスバーガー",
+      "kana": "ふれっしゅねすばーがー",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "sukiya",
+      "name": "すき家",
+      "kana": "すきや",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "yoshinoya",
+      "name": "吉野家",
+      "kana": "よしのや",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "matsuya",
+      "name": "松屋",
+      "kana": "まつや",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "nakau",
+      "name": "なか卯",
+      "kana": "なかう",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "saizeriya",
+      "name": "サイゼリヤ",
+      "kana": "さいぜりや",
+      "aliases": [
+        {
+          "name": "サイゼ",
+          "kana": "さいぜ"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "gusto",
+      "name": "ガスト",
+      "kana": "がすと",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "jonathans",
+      "name": "ジョナサン",
+      "kana": "じょなさん",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "bamiyan",
+      "name": "バーミヤン",
+      "kana": "ばーみやん",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "shabuyo",
+      "name": "しゃぶ葉",
+      "kana": "しゃぶよう",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "steak-gusto",
+      "name": "ステーキガスト",
+      "kana": "すてーきがすと",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "yumean",
+      "name": "夢庵",
+      "kana": "ゆめあん",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "dennys",
+      "name": "デニーズ",
+      "kana": "でにーず",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "royal-host",
+      "name": "ロイヤルホスト",
+      "kana": "ろいやるほすと",
+      "aliases": [
+        {
+          "name": "ロイホ",
+          "kana": "ろいほ"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "bikkuri-donkey",
+      "name": "びっくりドンキー",
+      "kana": "びっくりどんきー",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "joyfull",
+      "name": "ジョイフル",
+      "kana": "じょいふる",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "coco-ichibanya",
+      "name": "カレーハウスCoCo壱番屋",
+      "kana": "かれーはうすここいちばんや",
+      "aliases": [
+        {
+          "name": "ココイチ",
+          "kana": "ここいち"
+        },
+        {
+          "name": "CoCo壱",
+          "kana": "ここいち"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "marugame-seimen",
+      "name": "丸亀製麺",
+      "kana": "まるがめせいめん",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "hanamaru-udon",
+      "name": "はなまるうどん",
+      "kana": "はなまるうどん",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "sushiro",
+      "name": "スシロー",
+      "kana": "すしろー",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "kura-sushi",
+      "name": "くら寿司",
+      "kana": "くらずし",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "hama-sushi",
+      "name": "はま寿司",
+      "kana": "はまずし",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "kappa-sushi",
+      "name": "かっぱ寿司",
+      "kana": "かっぱずし",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "ohsho",
+      "name": "餃子の王将",
+      "kana": "ぎょうざのおうしょう",
+      "aliases": [
+        {
+          "name": "王将",
+          "kana": "おうしょう"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "osaka-ohsho",
+      "name": "大阪王将",
+      "kana": "おおさかおうしょう",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "hidakaya",
+      "name": "日高屋",
+      "kana": "ひだかや",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "kourakuen",
+      "name": "幸楽苑",
+      "kana": "こうらくえん",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "ringer-hut",
+      "name": "リンガーハット",
+      "kana": "りんがーはっと",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "tenya",
+      "name": "天丼てんや",
+      "kana": "てんどんてんや",
+      "aliases": [
+        {
+          "name": "てんや",
+          "kana": "てんや"
+        }
+      ],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "ootoya",
+      "name": "大戸屋",
+      "kana": "おおとや",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "yayoiken",
+      "name": "やよい軒",
+      "kana": "やよいけん",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "katsuya",
+      "name": "かつや",
+      "kana": "かつや",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "matsunoya",
+      "name": "松のや",
+      "kana": "まつのや",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "yakiniku-king",
+      "name": "焼肉きんぐ",
+      "kana": "やきにくきんぐ",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "gyukaku",
+      "name": "牛角",
+      "kana": "ぎゅうかく",
+      "aliases": [],
+      "categoryId": "restaurant"
+    },
+    {
+      "id": "starbucks",
+      "name": "スターバックス",
+      "kana": "すたーばっくす",
+      "aliases": [
+        {
+          "name": "スタバ",
+          "kana": "すたば"
+        },
+        {
+          "name": "スターバックスコーヒー",
+          "kana": "すたーばっくすこーひー"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "doutor",
+      "name": "ドトールコーヒーショップ",
+      "kana": "どとーるこーひーしょっぷ",
+      "aliases": [
+        {
+          "name": "ドトール",
+          "kana": "どとーる"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "tullys",
+      "name": "タリーズコーヒー",
+      "kana": "たりーずこーひー",
+      "aliases": [
+        {
+          "name": "タリーズ",
+          "kana": "たりーず"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "komeda",
+      "name": "コメダ珈琲店",
+      "kana": "こめだこーひーてん",
+      "aliases": [
+        {
+          "name": "コメダ",
+          "kana": "こめだ"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "st-marc-cafe",
+      "name": "サンマルクカフェ",
+      "kana": "さんまるくかふぇ",
+      "aliases": [
+        {
+          "name": "サンマルク",
+          "kana": "さんまるく"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "mister-donut",
+      "name": "ミスタードーナツ",
+      "kana": "みすたーどーなつ",
+      "aliases": [
+        {
+          "name": "ミスド",
+          "kana": "みすど"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "excelsior",
+      "name": "エクセルシオールカフェ",
+      "kana": "えくせるしおーるかふぇ",
+      "aliases": [
+        {
+          "name": "エクセルシオール",
+          "kana": "えくせるしおーる"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "hoshino-coffee",
+      "name": "星乃珈琲店",
+      "kana": "ほしのこーひーてん",
+      "aliases": [],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "veloce",
+      "name": "カフェ・ベローチェ",
+      "kana": "かふぇべろーちぇ",
+      "aliases": [
+        {
+          "name": "ベローチェ",
+          "kana": "べろーちぇ"
+        }
+      ],
+      "categoryId": "cafe"
+    },
+    {
+      "id": "yodobashi",
+      "name": "ヨドバシカメラ",
+      "kana": "よどばしかめら",
+      "aliases": [
+        {
+          "name": "ヨドバシ",
+          "kana": "よどばし"
+        }
+      ],
+      "categoryId": "electronics"
+    },
+    {
+      "id": "bic-camera",
+      "name": "ビックカメラ",
+      "kana": "びっくかめら",
+      "aliases": [
+        {
+          "name": "ビック",
+          "kana": "びっく"
+        }
+      ],
+      "categoryId": "electronics"
+    },
+    {
+      "id": "yamada-denki",
+      "name": "ヤマダデンキ",
+      "kana": "やまだでんき",
+      "aliases": [
+        {
+          "name": "ヤマダ電機",
+          "kana": "やまだでんき"
+        }
+      ],
+      "categoryId": "electronics"
+    },
+    {
+      "id": "ks-denki",
+      "name": "ケーズデンキ",
+      "kana": "けーずでんき",
+      "aliases": [],
+      "categoryId": "electronics"
+    },
+    {
+      "id": "edion",
+      "name": "エディオン",
+      "kana": "えでぃおん",
+      "aliases": [],
+      "categoryId": "electronics"
+    },
+    {
+      "id": "joshin",
+      "name": "ジョーシン",
+      "kana": "じょーしん",
+      "aliases": [
+        {
+          "name": "Joshin",
+          "kana": "じょーしん"
+        }
+      ],
+      "categoryId": "electronics"
+    },
+    {
+      "id": "daiso",
+      "name": "ダイソー",
+      "kana": "だいそー",
+      "aliases": [],
+      "categoryId": "hundred-yen"
+    },
+    {
+      "id": "seria",
+      "name": "セリア",
+      "kana": "せりあ",
+      "aliases": [],
+      "categoryId": "hundred-yen"
+    },
+    {
+      "id": "cando",
+      "name": "キャンドゥ",
+      "kana": "きゃんどぅ",
+      "aliases": [],
+      "categoryId": "hundred-yen"
+    },
+    {
+      "id": "watts",
+      "name": "ワッツ",
+      "kana": "わっつ",
+      "aliases": [],
+      "categoryId": "hundred-yen"
+    },
+    {
+      "id": "uniqlo",
+      "name": "ユニクロ",
+      "kana": "ゆにくろ",
+      "aliases": [
+        {
+          "name": "UNIQLO",
+          "kana": "ゆにくろ"
+        }
+      ],
+      "categoryId": "apparel"
+    },
+    {
+      "id": "gu",
+      "name": "ジーユー",
+      "kana": "じーゆー",
+      "aliases": [
+        {
+          "name": "GU",
+          "kana": "じーゆー"
+        }
+      ],
+      "categoryId": "apparel"
+    },
+    {
+      "id": "shimamura",
+      "name": "しまむら",
+      "kana": "しまむら",
+      "aliases": [],
+      "categoryId": "apparel"
+    },
+    {
+      "id": "muji",
+      "name": "無印良品",
+      "kana": "むじるしりょうひん",
+      "aliases": [
+        {
+          "name": "MUJI",
+          "kana": "むじるしりょうひん"
+        }
+      ],
+      "categoryId": "apparel"
     }
   ]
 }

@@ -50,6 +50,8 @@ export type PaymentKind =
   | 'code'
   /** プリペイド・電子マネー */
   | 'prepaid'
+  /** 現金。還元は常に0%で、比較の基準になる。 */
+  | 'cash'
 
 /**
  * コード決済への「チャージ元」。二重取りの計算に使う。
@@ -85,7 +87,8 @@ export type Card = {
   /** チャージ元の一覧。コード決済のみ。 */
   chargeFrom?: ChargeSource[]
   note?: string
-  source: Source
+  /** 出典。現金のように出典が存在しないものだけ省略できる。 */
+  source?: Source
 }
 
 /** 店舗の別名。「セブン」で「セブンイレブン」に当たるようにする。 */
@@ -113,7 +116,8 @@ export type Store = {
   aliases: StoreAlias[]
   /** 所属する分類のid */
   categoryId: string
-  source: Source
+  /** 出典。店名と分類だけの場合は省略できる。 */
+  source?: Source
 }
 
 /**
@@ -189,8 +193,8 @@ export type RewardPart = {
   cap?: Cap
   /** 補足 */
   note?: string
-  /** この項目の根拠 */
-  source: Source
+  /** この項目の根拠。現金など出典が無いものでは省略される。 */
+  source?: Source
 }
 
 /**

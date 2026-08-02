@@ -25,9 +25,16 @@ const isValidDate = (value: string): boolean => {
 /** ひらがな・長音符・空白だけでできているか */
 const isHiragana = (value: string): boolean => /^[ぁ-ゖー　 ]+$/.test(value)
 
-const expectValidSource = (source: Source, where: string): void => {
+const expectValidSource = (source: Source | undefined, where: string): void => {
+  if (source === undefined) return
   expect(source.url, `${where} の出典URL`).toMatch(/^https:\/\/\S+$/)
   expect(isValidDate(source.checkedOn), `${where} の最終確認日「${source.checkedOn}」`).toBe(true)
+}
+
+/** 出典が必ず必要なもの（還元率の主張を含むもの）用 */
+const expectRequiredSource = (source: Source | undefined, where: string): void => {
+  expect(source, `${where} の出典`).toBeDefined()
+  expectValidSource(source, where)
 }
 
 const expectValidCap = (cap: Cap | undefined, where: string): void => {
@@ -56,14 +63,21 @@ describe('カード名簿（cards.json）', () => {
       expect(card.id, `${where} のid`).toMatch(/^[a-z0-9-]+$/)
       expect(card.name.length, `${where} の名前`).toBeGreaterThan(0)
       expect(isHiragana(card.kana), `${where} のよみがな「${card.kana}」`).toBe(true)
-      expect(['credit', 'code', 'prepaid'], `${where} の種類`).toContain(card.kind)
+      expect(['credit', 'code', 'prepaid', 'cash'], `${where} の種類`).toContain(card.kind)
 
       // 還元率は「0.1%を1とする整数」。小数が紛れ込んでいないか確かめる。
       expect(Number.isInteger(card.baseRate), `${where} の基本還元率`).toBe(true)
       expect(card.baseRate, `${where} の基本還元率`).toBeGreaterThanOrEqual(0)
 
       expectValidCap(card.cap, where)
-      expectValidSource(card.source, where)
+
+      // 現金には公式ページが存在しないため、出典を省ける。それ以外は必須。
+      if (card.kind === 'cash') {
+        expect(card.baseRate, `${where} の基本還元率（現金は必ず0）`).toBe(0)
+        expectValidSource(card.source, where)
+      } else {
+        expectRequiredSource(card.source, where)
+      }
     }
   })
 
@@ -78,7 +92,7 @@ describe('カード名簿（cards.json）', () => {
         expect(charge.rate, `${where} の還元率`).toBeGreaterThanOrEqual(0)
 
         expectValidCap(charge.cap, where)
-        expectValidSource(charge.source, where)
+        expectRequiredSource(charge.source, where)
       }
     }
   })
@@ -137,8 +151,7 @@ describe('店舗名簿（stores.json）', () => {
 
 describe('優遇情報（bonuses.json）', () => {
   it('すべての優遇が必要な項目を正しく持っている', () => {
-    expect(bonusesFile.bonuses.length).toBeGreaterThan(0)
-
+    // 確認できたものだけを載せる方針のため、0件でもよい
     for (const bonus of bonusesFile.bonuses) {
       const where = `優遇（${bonus.cardId} × ${bonus.target.kind}:${bonus.target.id}）`
 
@@ -149,7 +162,7 @@ describe('優遇情報（bonuses.json）', () => {
       expect(bonus.rate, `${where} の還元率`).toBeGreaterThanOrEqual(0)
 
       expectValidCap(bonus.cap, where)
-      expectValidSource(bonus.source, where)
+      expectRequiredSource(bonus.source, where)
     }
   })
 

@@ -16,6 +16,13 @@ const katakanaToHiragana = (text: string): string =>
 const normalize = (text: string): string =>
   katakanaToHiragana(text.trim().toLowerCase()).replace(/[\s　ー・]/g, '')
 
+/**
+ * 濁点・半濁点を取り除く。
+ * 「はまずし」を「すし」で探せるようにするため（連濁で読みが変わる店名が多い）。
+ */
+const stripDakuten = (text: string): string =>
+  text.normalize('NFD').replace(/[゙゚]/g, '').normalize('NFC')
+
 /** 1つの店について、検索に使う文字列をすべて集める */
 const keysOf = (store: Store): string[] => [
   store.name,
@@ -26,17 +33,27 @@ const keysOf = (store: Store): string[] => [
 /**
  * 一致の強さ。小さいほど上に出す。
  * 0 = 先頭から一致（「せぶん」→「せぶんいれぶん」）
- * 1 = 途中に含まれる
+ * 1 = 濁点を無視すれば先頭から一致
+ * 2 = 途中に含まれる（「いれぶん」→「せぶんいれぶん」）
+ * 3 = 濁点を無視すれば途中に含まれる（「すし」→「はまずし」）
  * 該当なしは undefined
  */
 const matchScore = (store: Store, query: string): number | undefined => {
+  const looseQuery = stripDakuten(query)
   let best: number | undefined
+
+  const consider = (score: number): void => {
+    if (best === undefined || score < best) best = score
+  }
 
   for (const key of keysOf(store)) {
     const normalized = normalize(key)
+    const loose = stripDakuten(normalized)
 
     if (normalized.startsWith(query)) return 0
-    if (normalized.includes(query)) best = 1
+    if (loose.startsWith(looseQuery)) consider(1)
+    else if (normalized.includes(query)) consider(2)
+    else if (loose.includes(looseQuery)) consider(3)
   }
 
   return best
