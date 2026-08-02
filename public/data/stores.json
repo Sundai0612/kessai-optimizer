@@ -1,0 +1,59 @@
+{
+  "_note": "【重要】これは構造を確かめるためのサンプルです。URL・最終確認日は仮の値です。実際に使う前に確認して差し替えてください。",
+  "categories": [
+    { "id": "convenience", "name": "コンビニ", "kana": "こんびに" },
+    { "id": "drugstore", "name": "ドラッグストア", "kana": "どらっぐすとあ" },
+    { "id": "supermarket", "name": "スーパー", "kana": "すーぱー" },
+    { "id": "restaurant", "name": "飲食店", "kana": "いんしょくてん" }
+  ],
+  "stores": [
+    {
+      "id": "seven-eleven",
+      "name": "セブンイレブン",
+      "kana": "せぶんいれぶん",
+      "aliases": [
+        { "name": "セブン", "kana": "せぶん" },
+        { "name": "7-11", "kana": "せぶんいれぶん" },
+        { "name": "711", "kana": "せぶんいれぶん" }
+      ],
+      "categoryId": "convenience",
+      "source": {
+        "url": "https://www.sej.co.jp/",
+        "checkedOn": "2026-08-02"
+      }
+    },
+    {
+      "id": "lawson",
+      "name": "ローソン",
+      "kana": "ろーそん",
+      "aliases": [],
+      "categoryId": "convenience",
+      "source": {
+        "url": "https://www.lawson.co.jp/",
+        "checkedOn": "2026-08-02"
+      }
+    },
+    {
+      "id": "familymart",
+      "name": "ファミリーマート",
+      "kana": "ふぁみりーまーと",
+      "aliases": [{ "name": "ファミマ", "kana": "ふぁみま" }],
+      "categoryId": "convenience",
+      "source": {
+        "url": "https://www.family.co.jp/",
+        "checkedOn": "2026-08-02"
+      }
+    },
+    {
+      "id": "matsumotokiyoshi",
+      "name": "マツモトキヨシ",
+      "kana": "まつもときよし",
+      "aliases": [{ "name": "マツキヨ", "kana": "まつきよ" }],
+      "categoryId": "drugstore",
+      "source": {
+        "url": "https://www.matsukiyo.co.jp/",
+        "checkedOn": "2026-08-02"
+      }
+    }
+  ]
+}

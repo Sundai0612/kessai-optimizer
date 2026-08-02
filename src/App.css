@@ -1,81 +1,131 @@
 .app {
   max-width: 640px;
   margin: 0 auto;
-  padding: 32px 20px 64px;
+  padding: 24px 16px 64px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .app-header {
   text-align: center;
 }
 
-.app-logo {
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-}
-
 .app-header h1 {
-  margin: 16px 0 8px;
-  font-size: 1.6rem;
+  margin: 0 0 4px;
+  font-size: 1.4rem;
 }
 
-.app-lead {
-  margin: 0;
+.app-lead,
+.hint {
+  margin: 0 0 12px;
   color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.loading,
+.empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 16px 0;
+  margin: 0;
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 20px;
+  padding: 16px;
   box-shadow: var(--shadow);
 }
 
 .card h2 {
-  margin: 0 0 8px;
-  font-size: 1.05rem;
+  margin: 0 0 6px;
+  font-size: 1rem;
 }
 
-.card p {
-  margin: 0 0 12px;
+/* ---- 入力 ---- */
+
+.text-input {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.text-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.amount-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amount-unit {
   color: var(--text-muted);
 }
 
-.card p:last-child {
-  margin-bottom: 0;
-}
+/* ---- 検索候補 ---- */
 
-.counter {
-  width: 100%;
-  padding: 12px 16px;
+.suggestions {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  border: 1px solid transparent;
-  background: var(--accent);
-  color: #fff;
+  overflow: hidden;
+}
+
+.suggestions li + li {
+  border-top: 1px solid var(--border);
+}
+
+.suggestions button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.suggestions button:hover {
+  background: var(--accent-soft);
+}
+
+.suggestion-name {
   font-weight: 600;
-  transition: opacity 0.15s ease;
 }
 
-/* 暗い配色のときはボタンの地色が明るくなるので、文字を暗くして読みやすくする */
-@media (prefers-color-scheme: dark) {
-  .counter {
-    color: #12172a;
-  }
+.suggestion-kana {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
-.counter:hover {
-  opacity: 0.9;
+.selected-store {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.counter:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+.selected-store strong {
+  font-size: 1.15rem;
+  color: var(--heading);
 }
 
-.status {
+/* ---- 結果 ---- */
+
+.results {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -84,35 +134,232 @@
   gap: 12px;
 }
 
-.status li {
+.result {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.result.best {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.result-head {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   gap: 8px;
-  color: var(--text-muted);
-  font-size: 0.92rem;
 }
 
-.badge {
+.rank {
   flex: none;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.8rem;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rank {
+    color: #12172a;
+  }
+}
+
+.result-name {
+  flex: 1;
   font-weight: 600;
-  white-space: nowrap;
+  color: var(--heading);
+  display: flex;
+  flex-direction: column;
 }
 
-.badge-ok {
-  background: var(--ok-soft);
-  color: var(--ok);
+.charge-from {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
 }
 
-.badge-warn {
-  background: var(--warn-soft);
+.result-total {
+  flex: none;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-total strong {
+  font-size: 1.15rem;
+  color: var(--heading);
+}
+
+.result-rate {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ---- 計算式 ---- */
+
+.formula {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+}
+
+.formula-label {
+  color: var(--text-muted);
+}
+
+.formula-rate {
+  margin-left: 4px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.plus {
+  color: var(--text-muted);
+}
+
+.capped-mark,
+.warn {
   color: var(--warn);
 }
 
-.badge-idle {
-  background: var(--accent-soft);
+.capped-mark {
+  margin-left: 4px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--warn-soft);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.warn {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+}
+
+/* ---- 内訳 ---- */
+
+.details {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.details-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.details-label {
+  flex: 1;
+  color: var(--text-muted);
+}
+
+.details-points {
+  font-weight: 600;
+}
+
+.details-note {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.details-source {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.78rem;
   color: var(--accent);
+}
+
+.disclaimer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.disclaimer p {
+  margin: 0 0 6px;
+}
+
+/* ---- 決済手段の設定 ---- */
+
+.payment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px;
+  cursor: pointer;
+}
+
+.checkbox-row input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+}
+
+.charge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px 10px 34px;
+}
+
+.charge-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.charge-row select {
+  flex: 1;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.settings-toggle {
+  text-align: center;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.link-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

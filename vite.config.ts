@@ -47,7 +47,8 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+        // json を含めることで、還元率データもオフラインで読めるようにする
+        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2,json}'],
         // ページ内を移動しても、オフライン時に index.html を返す
         navigateFallback: `${base}index.html`,
         cleanupOutdatedCaches: true,
