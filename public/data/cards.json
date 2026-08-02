@@ -1,0 +1,60 @@
+{
+  "_note": "【重要】これは構造を確かめるためのサンプルです。還元率・URL・最終確認日はいずれも未確認の仮の値です。実際に使う前に、必ず公式サイトで確認して差し替えてください。",
+  "cards": [
+    {
+      "id": "rakuten-card",
+      "name": "楽天カード",
+      "kana": "らくてんかーど",
+      "kind": "credit",
+      "baseRate": 10,
+      "source": {
+        "url": "https://www.rakuten-card.co.jp/",
+        "checkedOn": "2026-08-02"
+      }
+    },
+    {
+      "id": "mitsui-sumitomo-nl",
+      "name": "三井住友カード（NL）",
+      "kana": "みついすみともかーどえぬえる",
+      "kind": "credit",
+      "baseRate": 5,
+      "source": {
+        "url": "https://www.smbc-card.com/",
+        "checkedOn": "2026-08-02"
+      }
+    },
+    {
+      "id": "paypay-card",
+      "name": "PayPayカード",
+      "kana": "ぺいぺいかーど",
+      "kind": "credit",
+      "baseRate": 10,
+      "source": {
+        "url": "https://www.paypay-card.co.jp/",
+        "checkedOn": "2026-08-02"
+      }
+    },
+    {
+      "id": "paypay",
+      "name": "PayPay",
+      "kana": "ぺいぺい",
+      "kind": "code",
+      "baseRate": 5,
+      "chargeFrom": [
+        {
+          "cardId": "paypay-card",
+          "rate": 5,
+          "note": "チャージでもらえる分。他社カードからのチャージは対象外のことが多い。",
+          "source": {
+            "url": "https://paypay.ne.jp/",
+            "checkedOn": "2026-08-02"
+          }
+        }
+      ],
+      "source": {
+        "url": "https://paypay.ne.jp/",
+        "checkedOn": "2026-08-02"
+      }
+    }
+  ]
+}

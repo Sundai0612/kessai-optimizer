@@ -15,7 +15,7 @@
 ## 技術構成
 - Vite + React + TypeScript
 - PWA対応（ホーム画面に追加できる）
-- Vercelに自動デプロイ
+- GitHub Pagesに自動デプロイ
 - サーバーなし・ログインなし・データベースなし
 - ユーザーデータは localStorage のみ
 
