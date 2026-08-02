@@ -194,16 +194,70 @@ export type RewardPart = {
 }
 
 /**
- * ある店で、あるカードを使ったときの還元率の計算結果。
+ * 内訳の1項目の計算結果。RewardPart に、金額を入れたときの還元額を足したもの。
+ */
+export type RewardPartResult = RewardPart & {
+  /**
+   * この項目でもらえる還元額（円）。金額を指定したときだけ入る。
+   * 1円未満は切り捨て、付与上限があれば上限で頭打ちにした後の値。
+   */
+  points?: number
+  /** 付与上限で頭打ちになったか */
+  capped: boolean
+}
+
+/**
+ * ある店で、ある決済手段を使ったときの計算結果。
  *
- * parts に内訳が入り、totalRate はその合計。
- * 「0.5 + 1.0 + 1.0 = 2.5%」という式をそのまま組み立てられる。
+ * parts に内訳が入るので、「0.5 + 1.0 + 1.0 = 2.5%」という式をそのまま組み立てられる。
  */
 export type RewardBreakdown = {
   cardId: string
-  parts: RewardPart[]
-  /** parts の rate をすべて足した合計 */
+  /** コード決済のとき、チャージに使ったカードのid */
+  chargeFromCardId?: string
+  parts: RewardPartResult[]
+  /** parts の rate をすべて足した合計（付与上限は考慮していない） */
   totalRate: RewardRate
+  /** 還元額の合計（円）。金額を指定したときだけ入る。 */
+  totalPoints?: number
+  /** 付与上限で頭打ちになった項目があるか */
+  capped: boolean
+  /**
+   * 付与上限はあるが、金額が未入力のため反映できていない項目があるか。
+   * true のときは、実際には表示より少なくなる可能性がある。
+   */
+  capUnknown: boolean
+}
+
+/** 利用者が持っている決済手段1つ分 */
+export type OwnedPayment = {
+  /** 決済手段のid */
+  cardId: string
+  /**
+   * コード決済のとき、チャージに使うカードのid。
+   * 指定しない場合、チャージ分は加算しない（不明な要素は足さないため）。
+   */
+  chargeFromCardId?: string
+}
+
+/** 計算に渡す条件 */
+export type RewardQuery = {
+  /** どの店か */
+  storeId: string
+  /** 支払い金額（円）。分からない場合は指定しない。 */
+  amount?: number
+  /** 持っている決済手段の一覧 */
+  owned: OwnedPayment[]
+  /** 判定の基準日。'2026-08-02' の形式。キャンペーンが有効かの判断に使う。 */
+  date: string
+}
+
+/** 計算に使うデータ一式（JSONから読み込んだもの） */
+export type PaymentData = {
+  cards: Card[]
+  categories: Category[]
+  stores: Store[]
+  bonuses: Bonus[]
 }
 
 /** public/data/cards.json 全体の形 */
