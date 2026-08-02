@@ -129,23 +129,81 @@ export type BonusTarget =
   | { kind: 'category'; id: string }
 
 /**
+ * 優遇の種類。画面に出す計算式の見出しになる。
+ *
+ * - merchant: 特約店・優待店としての上乗せ（常時）
+ * - campaign: 期間限定のイベント
+ */
+export type BonusKind = 'merchant' | 'campaign'
+
+/**
+ * rate に書いた数字が「何を指しているか」。
+ *
+ * 公式サイトの書き方が2通りあるため、どちらで書いたかを明示する。
+ *
+ * - 'add'   : 基本還元率への**上乗せ分**。「+1%」と書かれていたらこちら。
+ * - 'total' : 基本還元率を**含んだ合計**。「最大7%（基本0.5%を含む）」ならこちら。
+ *
+ * 'total' の場合、上乗せ分は「rate - カードのbaseRate」で計算する。
+ * 公式サイトの数字をそのまま写せるようにするための仕組み。
+ */
+export type RateBasis = 'add' | 'total'
+
+/**
  * 優遇情報の1件。
  *
  * 「優遇がある組み合わせだけ」を記録する。ここに無い組み合わせは、
- * カードの baseRate（基本還元率）がそのまま使われる。
+ * カードの baseRate（基本還元率）だけが使われる。
+ *
+ * 当てはまる優遇は**すべて足し合わせる**。
+ * 例: 基本0.5% + 特約店1.0% + イベント1.0% = 2.5%
  */
 export type Bonus = {
   /** どのカードの話か */
   cardId: string
   /** どこで効くか */
   target: BonusTarget
-  /** そのときの還元率。baseRate を置き換える（足すのではない）。 */
+  /** 特約店の上乗せか、期間限定イベントか */
+  kind: BonusKind
+  /** rate が「上乗せ分」か「基本込みの合計」か */
+  rateBasis: RateBasis
+  /** 還元率。rateBasis によって意味が変わる。 */
   rate: RewardRate
   cap?: Cap
   /** 期間限定のときだけ指定する。無い場合は常時有効。 */
   period?: Period
   note?: string
   source: Source
+}
+
+/**
+ * 還元率の内訳の1項目。
+ * 画面に「基本 0.5%」「特約店 1.0%」のように並べて見せるためのもの。
+ */
+export type RewardPart = {
+  /** この項目が何によるものか */
+  kind: 'base' | 'charge' | 'merchant' | 'campaign'
+  /** この項目でもらえる還元率（上乗せ分） */
+  rate: RewardRate
+  /** この項目にかかる付与上限 */
+  cap?: Cap
+  /** 補足 */
+  note?: string
+  /** この項目の根拠 */
+  source: Source
+}
+
+/**
+ * ある店で、あるカードを使ったときの還元率の計算結果。
+ *
+ * parts に内訳が入り、totalRate はその合計。
+ * 「0.5 + 1.0 + 1.0 = 2.5%」という式をそのまま組み立てられる。
+ */
+export type RewardBreakdown = {
+  cardId: string
+  parts: RewardPart[]
+  /** parts の rate をすべて足した合計 */
+  totalRate: RewardRate
 }
 
 /** public/data/cards.json 全体の形 */

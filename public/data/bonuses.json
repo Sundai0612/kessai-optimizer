@@ -1,12 +1,14 @@
 {
-  "_note": "【重要】これは構造を確かめるためのサンプルです。還元率・上限・URL・最終確認日はいずれも未確認の仮の値です。実際に使う前に、必ず公式サイトで確認して差し替えてください。ここに無い組み合わせは、カードの baseRate（基本還元率）が使われます。",
+  "_note": "【重要】これは構造を確かめるためのサンプルです。還元率・上限・URL・最終確認日はいずれも未確認の仮の値です。実際に使う前に、必ず公式サイトで確認して差し替えてください。／ここに無い組み合わせは、カードの baseRate（基本還元率）だけが使われます。当てはまる優遇はすべて足し合わせます。／rateBasis は rate の意味を表します。'add' は基本への上乗せ分（「+1%」と書かれていた場合）、'total' は基本を含んだ合計（「最大7%（基本0.5%含む）」と書かれていた場合）です。",
   "bonuses": [
     {
       "cardId": "mitsui-sumitomo-nl",
       "target": { "kind": "category", "id": "convenience" },
+      "kind": "merchant",
+      "rateBasis": "total",
       "rate": 70,
       "cap": { "period": "month", "maxPoints": 500 },
-      "note": "分類まるごとの指定の例。条件（支払い方法・対象店舗）は公式サイトで要確認。",
+      "note": "分類まるごとの指定＋合計での指定の例。基本0.5%を含む7%という書かれ方なので rateBasis は total。上乗せ分は 6.5% として計算される。",
       "source": {
         "url": "https://www.smbc-card.com/",
         "checkedOn": "2026-08-02"
@@ -15,8 +17,10 @@
     {
       "cardId": "rakuten-card",
       "target": { "kind": "store", "id": "seven-eleven" },
-      "rate": 20,
-      "note": "店を名指しした指定の例。分類の指定と両方が当てはまる場合は、こちらが勝つ。",
+      "kind": "merchant",
+      "rateBasis": "add",
+      "rate": 10,
+      "note": "店を名指しした指定＋上乗せ分での指定の例。基本1.0%に1.0%を足して合計2.0%になる。",
       "source": {
         "url": "https://www.rakuten-card.co.jp/",
         "checkedOn": "2026-08-02"
@@ -25,10 +29,12 @@
     {
       "cardId": "paypay",
       "target": { "kind": "store", "id": "seven-eleven" },
+      "kind": "campaign",
+      "rateBasis": "add",
       "rate": 30,
       "cap": { "period": "month", "maxPoints": 1000 },
       "period": { "from": "2026-08-01", "to": "2026-08-31" },
-      "note": "期間限定キャンペーンの例。これは構造の確認用の作り話で、実在のキャンペーンではありません。",
+      "note": "期間限定イベントの例。これは構造の確認用の作り話で、実在のキャンペーンではありません。",
       "source": {
         "url": "https://example.com/sample-campaign",
         "checkedOn": "2026-08-02"

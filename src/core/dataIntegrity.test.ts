@@ -37,6 +37,7 @@ const expectValidCap = (cap: Cap | undefined, where: string): void => {
   expect(cap.maxPoints, `${where} の上限ポイント`).toBeGreaterThan(0)
 }
 
+const cardsById = new Map(cardsFile.cards.map((card) => [card.id, card]))
 const cardIds = new Set(cardsFile.cards.map((card) => card.id))
 const storeIds = new Set(storesFile.stores.map((store) => store.id))
 const categoryIds = new Set(storesFile.categories.map((category) => category.id))
@@ -142,11 +143,30 @@ describe('優遇情報（bonuses.json）', () => {
       const where = `優遇（${bonus.cardId} × ${bonus.target.kind}:${bonus.target.id}）`
 
       expect(cardIds, `${where} のカードid`).toContain(bonus.cardId)
+      expect(['merchant', 'campaign'], `${where} の種類`).toContain(bonus.kind)
+      expect(['add', 'total'], `${where} の rateBasis`).toContain(bonus.rateBasis)
       expect(Number.isInteger(bonus.rate), `${where} の還元率`).toBe(true)
       expect(bonus.rate, `${where} の還元率`).toBeGreaterThanOrEqual(0)
 
       expectValidCap(bonus.cap, where)
       expectValidSource(bonus.source, where)
+    }
+  })
+
+  it('合計で書かれた優遇が、基本還元率を下回っていない', () => {
+    // rateBasis が 'total' のとき、上乗せ分は「rate - baseRate」で求める。
+    // rate が baseRate より小さいと上乗せ分がマイナスになり、優遇のはずが減点になってしまう。
+    for (const bonus of bonusesFile.bonuses) {
+      if (bonus.rateBasis !== 'total') continue
+
+      const card = cardsById.get(bonus.cardId)
+      expect(card, `優遇が指すカード「${bonus.cardId}」`).toBeDefined()
+      if (card === undefined) continue
+
+      expect(
+        bonus.rate,
+        `優遇（${card.name} × ${bonus.target.id}）の合計還元率が、基本還元率を下回っている`,
+      ).toBeGreaterThanOrEqual(card.baseRate)
     }
   })
 
@@ -173,14 +193,16 @@ describe('優遇情報（bonuses.json）', () => {
     }
   })
 
-  it('同じカード・同じ対象の優遇が重複していない', () => {
+  it('同じカード・同じ対象・同じ種類の優遇が重複していない', () => {
+    // 特約店の上乗せとイベントは同じ店で重なってよい（足し合わせるため）。
+    // 重複を禁じるのは「同じ種類のものが二重に登録されている」場合だけ。
     const seen = new Set<string>()
 
     for (const bonus of bonusesFile.bonuses) {
       // 期間限定は同じ対象に複数あってよいので、常時有効なものだけを見る
       if (bonus.period !== undefined) continue
 
-      const key = `${bonus.cardId}|${bonus.target.kind}|${bonus.target.id}`
+      const key = `${bonus.cardId}|${bonus.target.kind}|${bonus.target.id}|${bonus.kind}`
       expect(seen, `優遇の重複（${key}）`).not.toContain(key)
       seen.add(key)
     }
