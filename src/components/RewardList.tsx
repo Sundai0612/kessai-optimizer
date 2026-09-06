@@ -50,9 +50,11 @@ const Details = ({ parts }: { parts: RewardPartResult[] }) => (
 
         {part.note !== undefined && <p className="details-note">{part.note}</p>}
 
-        <a className="details-source" href={part.source.url} target="_blank" rel="noreferrer">
-          出典（{part.source.checkedOn} 確認）
-        </a>
+        {part.source !== undefined && (
+          <a className="details-source" href={part.source.url} target="_blank" rel="noreferrer">
+            出典（{part.source.checkedOn} 確認）
+          </a>
+        )}
       </li>
     ))}
   </ul>
